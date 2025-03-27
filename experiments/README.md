@@ -1,0 +1,1 @@
+This directory consists of the notebook for testing different embedding models and retrievers before finalizing the workflow. This notebook ensures the best-performing configurations are selected for the final workflow.
