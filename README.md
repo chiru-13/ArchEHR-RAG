@@ -3,6 +3,11 @@
 ## Overview
 This project focuses on automatically generating responses to patients' health-related questions using evidence from their clinical notes. The dataset comprises realistic patient inquiries submitted through a patient portal and their corresponding clinician-rewritten versions, designed to aid in formulating accurate responses. The primary objective is to construct well-grounded, coherent answers that leverage the provided clinical note excerpts to ensure reliable and contextually appropriate information. The pipeline consists of data preprocessing, embedding storage, retrieval, and response generation using a large language model (LLM).
 
+## Team Members
+- **R Adarsh - 12141350**
+- **M Jashraj - 12141110** 
+- **R Chiranjeevi Srinivas - 12141290** 
+
 ## Project Structure
 
 ```
