@@ -1,0 +1,11 @@
+llama-index
+llama-index-vector-stores-chroma
+llama-index-embeddings-huggingface
+llama-index-embeddings-langchain
+llama-index-retrievers-bm25
+langchain 
+langchain-community
+llama-index-llms-ollama
+llama-index-llms-huggingfacechromadb
+langgraph
+rich
