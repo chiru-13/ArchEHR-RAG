@@ -9,3 +9,5 @@ llama-index-llms-ollama
 llama-index-llms-huggingfacechromadb
 langgraph
 rich
+pandas
+numpy

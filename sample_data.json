@@ -2,18 +2,17 @@
     "1": {
         "patient_narrative": "The patient is a 56-year-old male with a history of type 2 diabetes and hypertension. He presented with recurrent headaches, dizziness, and occasional episodes of blurry vision over the past two months. His blood pressure at the clinic visit was 162/98 mmHg. He was previously on amlodipine but stopped taking it due to leg swelling. The patient is concerned about alternative treatments and whether lifestyle changes alone could manage his condition.",
         "clinician_question": "What are the potential alternative medications for this patient’s hypertension, considering his history of leg swelling with amlodipine, and how do they compare in terms of efficacy and side effects?",
-        "note_excerpt": "Medical Assessment:\n\nThe patient has stage 2 hypertension with elevated blood pressure readings. Given intolerance to amlodipine, options include switching to an angiotensin receptor blocker (ARB) or a beta-blocker. Lifestyle modifications such as reduced sodium intake and increased physical activity were recommended. A follow-up in two weeks was scheduled to reassess blood pressure response to the new treatment.",
-        "patient_question": [
-            "What are some antihypertensive medications that don’t cause leg swelling, and how do they work differently?",
-            "If I improve my diet and exercise, how much can I expect my blood pressure to drop without medication?"
-        ],
-        "note_excerpt_sentences": [
-            "Medical Assessment:",
-            "The patient has stage 2 hypertension with elevated blood pressure readings.",
-            "Given intolerance to amlodipine, alternative treatment options were discussed.",
-            "Lifestyle modifications such as reduced sodium intake and increased physical activity were recommended.",
-            "A follow-up in two weeks was scheduled to reassess blood pressure response to the new treatment."
-        ],
+        "patient_question": {
+           "0": "What are some antihypertensive medications that don’t cause leg swelling, and how do they work differently?",
+            "1": "If I improve my diet and exercise, how much can I expect my blood pressure to drop without medication?"
+        },
+        "note_excerpts":         {
+            "0": "Medical Assessment:",
+            "1": "The patient has stage 2 hypertension with elevated blood pressure readings.", 
+            "2": "Given intolerance to amlodipine, alternative treatment options were discussed.", 
+            "3": "Lifestyle modifications such as reduced sodium intake and increased physical activity were recommended.", 
+            "4": "A follow-up in two weeks was scheduled to reassess blood pressure response to the new treatment."
+        },
         "not-relevant": [0, 4],
         "supplementary": [3],
         "essential": [1, 2]
@@ -21,18 +20,17 @@
     "2": {
         "patient_narrative": "A 34-year-old female reports persistent fatigue, dizziness, and occasional shortness of breath over the past six weeks. She has a history of heavy menstrual periods and follows a vegetarian diet. Bloodwork revealed hemoglobin of 8.9 g/dL and ferritin levels of 10 ng/mL. The primary care physician diagnosed iron-deficiency anemia and prescribed oral ferrous sulfate. However, the patient is unsure if her symptoms are solely due to anemia and wants to explore other possible causes.",
         "clinician_question": "How can we determine if the patient's anemia is purely due to iron deficiency, or could there be other underlying causes such as chronic disease or absorption issues?",
-        "note_excerpt": "Laboratory Findings:\n\nThe patient's hemoglobin is 8.9 g/dL with low ferritin, consistent with iron-deficiency anemia. No evidence of hemolysis was found. Given her history of heavy menstrual bleeding, further evaluation for underlying gynecological conditions is warranted. She was prescribed oral iron therapy and advised to return for repeat labs in one month.",
-        "patient_question": [
-            "Could there be other reasons for my anemia apart from low iron levels, and what tests would confirm this?",
-            "Would taking vitamin B12 or folate in addition to iron help my anemia, and why?"
-        ],
-        "note_excerpt_sentences": [
-            "Laboratory Findings:",
-            "The patient's hemoglobin is 8.9 g/dL with low ferritin, consistent with iron-deficiency anemia.",
-            "No evidence of hemolysis was found.",
-            "Given her history of heavy menstrual bleeding, further evaluation for underlying gynecological conditions is warranted.",
-            "She was prescribed oral iron therapy and advised to return for repeat labs in one month."
-        ],
+        "patient_question":         {
+            "0": "Could there be other reasons for my anemia apart from low iron levels, and what tests would confirm this?",
+            "1": "Would taking vitamin B12 or folate in addition to iron help my anemia, and why?"
+        },
+        "note_excerpt_sentences":         {
+            "0": "Laboratory Findings:",  
+            "1": "The patient's hemoglobin is 8.9 g/dL with low ferritin, consistent with iron-deficiency anemia.", 
+            "2": "No evidence of hemolysis was found.", 
+            "3": "Given her history of heavy menstrual bleeding, further evaluation for underlying gynecological conditions is warranted.", 
+            "4": "She was prescribed oral iron therapy and advised to return for repeat labs in one month."
+        },
         "not-relevant": [0, 4],
         "supplementary": [2],
         "essential": [1, 3]
@@ -40,18 +38,17 @@
     "3": {
         "patient_narrative": "A 68-year-old male with a history of smoking and hyperlipidemia experienced sudden chest discomfort while walking. He described it as a tight pressure lasting for five minutes. Upon arrival at the emergency department, his ECG showed non-specific ST-T wave changes, but troponin levels were negative. He was given aspirin and advised to follow up for further cardiac risk assessment. He is concerned about whether his symptoms indicate an underlying heart problem and whether additional testing is required.",
         "clinician_question": "Given the patient’s risk factors and presentation, what additional tests should be considered to rule out coronary artery disease, and how do these tests provide a more accurate diagnosis?",
-        "note_excerpt": "Cardiology Evaluation:\n\nThe patient's ECG showed non-specific ST-T wave changes, but troponin levels remained within the normal range. Given the presence of cardiovascular risk factors, a stress test was recommended to rule out underlying ischemia. The patient was started on aspirin and a statin and advised on smoking cessation.",
-        "patient_question": [
-            "What are the differences between a stress test, echocardiogram, and coronary angiography, and which one is best for my case?",
-            "Does my chest discomfort mean I need long-term medication, or is there a way to reverse the risk?"
-        ],
-        "note_excerpt_sentences": [
-            "Cardiology Evaluation:",
-            "The patient's ECG showed non-specific ST-T wave changes.",
-            "Troponin levels remained within the normal range.",
-            "A stress test was recommended to rule out underlying ischemia.",
-            "The patient was started on aspirin and a statin."
-        ],
+        "patient_question":         {
+            "0": "What are the differences between a stress test, echocardiogram, and coronary angiography, and which one is best for my case?",
+            "1": "Does my chest discomfort mean I need long-term medication, or is there a way to reverse the risk?"
+        },
+        "note_excerpt_sentences":         {
+            "0": "Cardiology Evaluation:", 
+            "1": "The patient's ECG showed non-specific ST-T wave changes.", 
+            "2": "Troponin levels remained within the normal range.", 
+            "3": "A stress test was recommended to rule out underlying ischemia.",  
+            "4": "The patient was started on aspirin and a statin."
+        },
         "not-relevant": [0, 2],
         "supplementary": [1],
         "essential": [3, 4]
