@@ -24,7 +24,7 @@
             "0": "Could there be other reasons for my anemia apart from low iron levels, and what tests would confirm this?",
             "1": "Would taking vitamin B12 or folate in addition to iron help my anemia, and why?"
         },
-        "note_excerpt_sentences":         {
+        "note_excerpts":         {
             "0": "Laboratory Findings:",  
             "1": "The patient's hemoglobin is 8.9 g/dL with low ferritin, consistent with iron-deficiency anemia.", 
             "2": "No evidence of hemolysis was found.", 
@@ -42,7 +42,7 @@
             "0": "What are the differences between a stress test, echocardiogram, and coronary angiography, and which one is best for my case?",
             "1": "Does my chest discomfort mean I need long-term medication, or is there a way to reverse the risk?"
         },
-        "note_excerpt_sentences":         {
+        "note_excerpts":         {
             "0": "Cardiology Evaluation:", 
             "1": "The patient's ECG showed non-specific ST-T wave changes.", 
             "2": "Troponin levels remained within the normal range.", 
