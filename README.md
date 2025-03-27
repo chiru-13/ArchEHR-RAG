@@ -20,6 +20,7 @@ ArchEHR-RAG/
 │── retriever.py  # Implements different retrieval mechanisms
 │── response_generator.py  # Handles LLM-based response synthesis
 │── requirements.txt  # Dependencies
+|── sample_data.json # Contains sample test cases (synthetic)
 ```
 
 ## Technologies and Models Used
@@ -137,6 +138,8 @@ Prepares the dataset by converting it into a Pandas DataFrame for easy accessibi
 ### `experiments/model_experiments.ipynb`
 Used to test different embedding models and retrievers before finalizing the workflow. This notebook ensures the best-performing configurations are selected.
 
+### `sample_data.json`
+Contains th sample test data for testing the work flow of the `ArchEHR-RAG`. Load this json or copy paste each test case as required to `main.py`.
 
 ## Citation for ArchEHR-QA:
 Soni, S., & Demner-Fushman, D. (2025). ArchEHR-QA: BioNLP at ACL 2025 Shared Task on Grounded Electronic Health Record Question Answering (version 1.1). PhysioNet. https://doi.org/10.13026/f9xr-rr81.
