@@ -1,4 +1,5 @@
 llm_model= "ahmgam/medllama3-v20"
+OPENROUTER_API = "<api-key>" # Replace with your OpenRouter API key
 
 summary_prompt = (
         "You are a clinical bot designed to answer queries based strictly on the provided context.\n"

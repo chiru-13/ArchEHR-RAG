@@ -17,28 +17,32 @@ ArchEHR-RAG/
 │
 │── experiments/
 │   └── model_experiments.ipynb  # Tests embedding models and retrievers
+│   └── question_relevance_sim.py # Experiment on question relevance with similarity score
 │
 │── main.py  # Main execution script
 │── config.py  # Configuration file containing model settings
 │── utils.py  # Utility functions for embedding models and LLM initialization
+│── question_relevance.py # Implements the question relevance for given inputs
 │── vector_db.py  # Manages vector storage using ChromaDB
 │── retriever.py  # Implements different retrieval mechanisms
 │── response_generator.py  # Handles LLM-based response synthesis
+│── app.py # Streamlit web interface for Medical Bot.
 │── requirements.txt  # Dependencies
-|── sample_data.json # Contains sample test cases (synthetic)
+└── sample_data.json # Contains sample test cases (synthetic)
 ```
 
 ## Technologies and Models Used
 - **Embedding Models**: `mpnet`, `minilm`, `distilroberta`, `MedEmbed`, `BAAI_bge`, `MiniLM`, `GTE_base` (defined in `config.py`)
 - **Retrievers**: `Base`, `AutoMerging`, `BM25`
 - **Database**: `ChromaDB`
-- **LLM**: `ahmgam/medllama3-v20` (Ollama model)
-- **Libraries**: `llama-index`, `langchain`, `langgraph`, `chromadb`, `fastembed`
+- **LLM**: `ahmgam/medllama3-v20` (Ollama model), `deepseek-r1` (OpenRouterAPI)
+- **Libraries**: `llama-index`, `langchain`, `langgraph`, `chromadb`, `fastembed`, `streamlit`
 
 ## Input Format (Example)
 Input query format for the system:
 ```json
 {
+    "patient_narrative": "The patient is a 56-year-old male with a history of type 2 diabetes and hypertension. He presented with recurrent headaches, dizziness, and occasional episodes of blurry vision over the past two months. His blood pressure at the clinic visit was 162/98 mmHg. He was previously on amlodipine but stopped taking it due to leg swelling. The patient is concerned about alternative treatments and whether lifestyle changes alone could manage his condition.",
     "note_excerpts": {
         "0": "Medical Assessment:",
         "1": "The patient has stage 2 hypertension with elevated blood pressure readings.", 
@@ -98,17 +102,44 @@ pip install -r requirements.txt
 ```sh
 ollama pull ahmgam/medllama3-v20
 ```
+### 5. Get OpenRouter API Key (for DeepSeek Model)
+- Go to [openrouter.ai](https://openrouter.ai/deepseek/deepseek-r1:free)
+- Sign up or log in.
+- Navigate to the **API Keys** section.
+- Generate a new API key.
+- Save this key securely and configure it in `config.py` in the variable `OPENROUTER_API_KEY`.
 
-### 5. Run the Main Script
-```sh
-python main.py
-```
+### 6. Running the Project
+
+- **Option 1: Run through Command Line Interface (CLI)**
+    ```sh
+    python main.py
+    ```
+
+- **Option 2: Run through Web Interface (Recommended)**
+    ```sh
+    streamlit run app.py
+    ```
+
+    This will launch a web application where you can input:
+    - Clinical notes
+    - Patient narratives
+    - Patient questions
+    - Clinical questions
+
+    and get the generated responses directly via an easy-to-use interface.
+
 
 ## Workflow Visualization
 ### The workflow of the project can be visualized as follows:
 
 <p align='center'>
 <img src="workflow.png" width="400">
+</p>
+
+## Streamlit App Interface 
+<p align='center'>
+<img src="image.png" width="400">
 </p>
 
 ## File Descriptions
@@ -118,6 +149,9 @@ The main entry point of the project, orchestrating data loading, retrieval, and 
 
 ### `config.py`
 Contains configuration settings, including the selected LLM model (`ahmgam/medllama3-v20`), prompt templates, and embedding models used in the project.
+
+### `question_relevance.py`
+Defines the function to perform the question relevance using LLM. It uses the `deepseek-r1` model (OpenRouterAPI) to perform the relevance task with the inputs patient_narrative, patient_question and clinical note.
 
 ### `response_generator.py`
 Defines functions for generating responses using the selected LLM. It creates a response synthesizer using `llama_index` and constructs a query engine by integrating a retriever and a response synthesizer.
@@ -143,8 +177,14 @@ Prepares the dataset by converting it into a Pandas DataFrame for easy accessibi
 ### `experiments/model_experiments.ipynb`
 Used to test different embedding models and retrievers before finalizing the workflow. This notebook ensures the best-performing configurations are selected.
 
+### `experiments/question_relevance_sim.py`
+Experiments various inputs to check the similarity scores that can be used to achieve the task of question relevane among the inputs.
+
+### `app.py`
+Creates a Streamlit web interface for users to input clinical notes, patient narratives, patient questions, and clinical questions and get the desired response for the question.
+
 ### `sample_data.json`
-Contains th sample test data for testing the work flow of the `ArchEHR-RAG`. Load this json or copy paste each test case as required to `main.py`.
+Contains the sample test data for testing the work flow of the `ArchEHR-RAG`. Load this json or copy paste each test case as required to `main.py`.
 
 ## Citation for ArchEHR-QA:
 Soni, S., & Demner-Fushman, D. (2025). ArchEHR-QA: BioNLP at ACL 2025 Shared Task on Grounded Electronic Health Record Question Answering (version 1.1). PhysioNet. https://doi.org/10.13026/f9xr-rr81.

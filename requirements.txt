@@ -5,8 +5,11 @@ llama-index-embeddings-langchain
 llama-index-retrievers-bm25
 langchain 
 langchain-community
+langchain-qdrant
+fastembed
 llama-index-llms-ollama
-llama-index-llms-huggingfacechromadb
+llama-index-llms-huggingface
+chromadb
 langgraph
 rich
 pandas

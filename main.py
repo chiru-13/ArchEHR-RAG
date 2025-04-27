@@ -3,6 +3,7 @@ from utils import *
 from response_generator import *
 from retriever import *
 from vector_db import *
+from question_relevance import * 
 from typing import TypedDict, Dict, Any, List
 from llama_index.core import VectorStoreIndex
 from llama_index.core.query_engine import RetrieverQueryEngine
@@ -56,6 +57,7 @@ def print_agent_output(agent_name: str, output: Dict[str, Any], success: bool = 
 # Define Graph State
 class QueryState(TypedDict):
     input: Dict[str, Any] | str
+    relevance: str
     docs: List
     nodes: List
     error: bool
@@ -72,10 +74,29 @@ embed_model = load_embed_model("BAAI_bge")
 llm = initialise_llm(llm_model=llm_model)
 console.print("[green]Initialization Complete![/green]")
 
-def load_documents(state):
-    # Simulating document loading (replace with actual source)
+def relevance_node(state):
     try:
-        print_step_header("Document Loader", 1)
+        print_step_header("Question Relevance", 1)
+        patient_narr = state['input']['patient_narrative']
+        patient_ques_dict = state['input']['patient_question']
+        notes_dict = state['input']['note_excerpts']
+        rel_response = check_question_relevance(patient_ques_dict, patient_narr, notes_dict)
+        if rel_response.strip() == "Yes":
+          state['relevance'] = rel_response
+          print_agent_output("Question Relevance", {"message": f"The given inputs are relevant."})
+        else:
+          state['relevance'] = "No"
+          print_agent_output("Question Relevance", {"message": f"The given inputs are not relevant. Please try again..."}, False)
+        return state
+    except Exception as e:
+        print_agent_output("Question Relevance", {"error": str(e)}, False)
+        state['relevance'] = "No"
+        print(f"Error finding relevance: {str(e)}") 
+        return state
+    
+def load_documents(state):
+    try:
+        print_step_header("Document Loader", 2)
         note_excerpts = state['input']['note_excerpts']
         docs, nodes = create_docs_n_nodes(note_excerpts)
         index = create_index(chroma_client, docs, embed_model)
@@ -94,7 +115,7 @@ def load_documents(state):
 
 def retrieve(state):
     try:
-        print_step_header("Retriever", 2)
+        print_step_header("Retriever", 3)
         index = state["index"]
         nodes = state["nodes"]
         note_excerpt = state['input']['note_excerpts'] 
@@ -112,7 +133,7 @@ def retrieve(state):
     
 def generate_response(state):
     try:
-        print_step_header("Response Generator", 3)
+        print_step_header("Response Generator", 4)
         retriever = state["retriever"]
         response_synthesizer = create_response_synthesizer(llm)
         query_engine = build_query_engine(retriever, response_synthesizer)
@@ -141,9 +162,15 @@ def generate_response(state):
 
 # Define the Graph
 workflow = StateGraph(QueryState)
+workflow.add_node("Question Relevance", relevance_node)
 workflow.add_node("Document Loader", load_documents)
 workflow.add_node("Retriever", retrieve)
 workflow.add_node("Response Generator", generate_response)
+
+workflow.add_conditional_edges(
+    "Question Relevance",
+    lambda state: "Document Loader" if state['relevance']=="Yes" else END
+)
 
 workflow.add_conditional_edges(
     "Document Loader",
@@ -154,7 +181,7 @@ workflow.add_conditional_edges(
     lambda state: "Response Generator" if not state['error'] else END
 )
 
-workflow.add_edge(START, "Document Loader")
+workflow.add_edge(START, "Question Relevance")
 workflow.add_edge("Response Generator", END)
 
 console.print("[bold blue]Compiling Workflow...[/bold blue]")
@@ -198,13 +225,14 @@ if __name__ == "__main__":
             "4": "A follow-up in two weeks was scheduled to reassess blood pressure response to the new treatment.",
         },
       "patient_question": {
-            "0": "What are some antihypertensive medications that don’t cause leg swelling, and how do they work differently?",
-            "1": "If I improve my diet and exercise, how much can I expect my blood pressure to drop without medication?"
+            "0": "Could you explain what causes ringing in the ears and how it can be treated?",
+            "1": "Is it normal to experience mild hand tremors when feeling anxious or stressed?"
         },
       "clinical_question": "What are the potential alternative medications for this patient’s hypertension, considering his history of leg swelling with amlodipine, and how do they compare in terms of efficacy and side effects?",
-    }
+      "patient_narrative": "Lately, I’ve been having a lot of trouble sleeping due to frequent nightmares. I also noticed some mild skin rashes after using a new laundry detergent. I haven’t had any major health issues recently, but I’m thinking about adopting a cat soon, so I wanted to make sure I’m not allergic. Additionally, I’ve been feeling a bit more anxious at work due to increased deadlines",
+      }
     response = process_query(user_input)
-    if not response['error']:
+    if not response['error'] and response['response']:
       print("Response:", response['response'] + "\n" + response['note_texts'])
       console.print("[bold green]Workflow Execution Complete![/bold green]")
     else:
