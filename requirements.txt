@@ -14,3 +14,7 @@ langgraph
 rich
 pandas
 numpy
+streamlit
+llama-index-llms-openrouter
+openpyxl
+tiktokensss
