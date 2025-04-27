@@ -139,7 +139,11 @@ ollama pull ahmgam/medllama3-v20
 
 ## Streamlit App Interface 
 <p align='center'>
-<img src="image.png" width="400">
+<img src="image1.png" width="400">
+</p>
+
+<p align='center'>
+<img src="image2.png" width="400">
 </p>
 
 ## File Descriptions
